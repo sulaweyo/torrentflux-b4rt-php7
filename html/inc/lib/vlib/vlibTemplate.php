@@ -3,9 +3,9 @@
 // +----------------------------------------------------------------------+
 // | PHP version 4.3.x (and higher), tested with 5.1.4                    |
 // +----------------------------------------------------------------------+
-// | Copyright (c) 2002-2007 Kelvin Jones, Claus van Beek, Stefan Deußen  |
+// | Copyright (c) 2002-2007 Kelvin Jones, Claus van Beek, Stefan Deuï¿½en  |
 // +----------------------------------------------------------------------+
-// | Authors: Kelvin Jones, Claus van Beek, Stefan Deußen                 |
+// | Authors: Kelvin Jones, Claus van Beek, Stefan Deuï¿½en                 |
 // +----------------------------------------------------------------------+
 
 // check to avoid multiple including of class
@@ -21,7 +21,7 @@ if (!defined('vlibTemplateClassLoaded')) {
      * vlibTemplate.html file, located in the 'docs' directory.
      *
      * @since 07/03/2002
-     * @author Kelvin Jones, Claus van Beek, Stefan Deußen
+     * @author Kelvin Jones, Claus van Beek, Stefan Deuï¿½en
      * @package vLIB
      * @access public
      * @see vlibTemplate.html
@@ -927,10 +927,15 @@ if (!defined('vlibTemplateClassLoaded')) {
                 $regex.=    '[\"\']?';
                 $regex.= ')?\s*';
                 $regex.= '(?:>|\/>|}|-->){1}';
-                $regex.= '/ie';
-                $data = preg_replace($regex,"\$this->_parseTag(array('\\0','\\1','\\2','\\3','\\4','\\5','\\6','\\7','\\8'));",$data);
+                $regex.= '/i';
+                $data = preg_replace_callback($regex,function($m) {
+                	if (is_array($m)) {
+                		return $this->_parseTag($m);
+                	}
+                	return null;
+                },$data);
 
-                if ($this->_cache) { // add cache if need be
+                if ($this->_cache and $data != null) { // add cache if need be
                     $this->_createCache($data);
                 }
             }
@@ -1210,7 +1215,7 @@ if (!defined('vlibTemplateClassLoaded')) {
 
             switch (strtolower($this->OPTIONS['UNKNOWNS'])) {
                 case 'comment':
-                    $comment = addcslashes('<!-- unknown variable '.ereg_replace('<!--|-->', '', $wholetag).'//-->', '"');
+                    $comment = addcslashes('<!-- unknown variable '.preg_replace('/<!--|-->/', '', $wholetag).'//-->', '"');
                     $retstr .= ' else { print("'.$comment.'"); $this->_setUnknown("'.$varname.'"); }';
                     return $retstr;
                 break;
@@ -1364,9 +1369,13 @@ if (!defined('vlibTemplateClassLoaded')) {
          */
         function _intParse () {
             $mqrt = get_magic_quotes_runtime();
-            set_magic_quotes_runtime(0);
+            if ($mqrt) {
+            	set_magic_quotes_runtime(0);
+            }
             $this->_tmplfilep = '?>'.$this->_getData($this->_tmplfilename).'<?php return true;';
-            set_magic_quotes_runtime($mqrt);
+            if ($mqrt) {
+            	set_magic_quotes_runtime($mqrt);
+            }
             return true;
         }
 

@@ -223,7 +223,7 @@ class SearchEngine extends SearchEngineBase
             $tmpList = substr($thing,0,strpos($thing,"</table>"));
 
             // ok so now we have the listing.
-            $tmpListArr = split("</tr>",$tmpList);
+            $tmpListArr = explode("</tr>",$tmpList);
 
             $bg = $this->cfg["bgLight"];
 
@@ -324,11 +324,11 @@ class tBox
             $this->Data = $htmlLine;
 
             // Fix messed up end td's once in a while.
-            $htmlLine = eregi_replace("<(.)*1ff8(.)*/td>",'</td>',$htmlLine);
-            $htmlLine = eregi_replace("1ff8",'',$htmlLine);
+            $htmlLine = preg_replace("/<(.)*1ff8(.)*/td>/i",'</td>',$htmlLine);
+            $htmlLine = preg_replace("/1ff8/i",'',$htmlLine);
 
             // Chunck up the row into columns.
-            $tmpListArr = split("</td>",$htmlLine);
+            $tmpListArr = explode("</td>",$htmlLine);
 
             if(count($tmpListArr) > 8)
             {

@@ -128,6 +128,7 @@ if (@is_file('inc/config/config.db.php')) {
 	// check db-type
 	$databaseTypes = array();
 	$databaseTypes['mysql'] = 'mysql_connect';
+	$databaseTypes['mysqli'] = 'mysqli_connect';
 	$databaseTypes['sqlite'] = 'sqlite_open';
 	$databaseTypes['postgres'] = 'pg_connect';
 	if (array_key_exists($cfg["db_type"], $databaseTypes)) {

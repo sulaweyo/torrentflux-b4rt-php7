@@ -157,7 +157,7 @@ if (!cacheIsSet($currentUser)) {
 	list ($cfg["hide_offline"], $cfg["theme"], $cfg["language_file"]) = $recordset->FetchRow();
 
 	// Check for valid language file
-	if (!ereg('^[^./][^/]*$', $cfg["language_file"])) {
+	if (!preg_match('/^[^.\/][^\/]*$/', $cfg["language_file"])) {
 		AuditAction($cfg["constants"]["error"], "LANGUAGE VARIABLE CHANGE ATTEMPT: ".$cfg["language_file"]." from ".$cfg["user"]);
 		$cfg["language_file"] = $cfg["default_language"];
 	}

@@ -139,6 +139,7 @@ echo '4. PHP-Database-Support'."\n";
 // define valid db-types
 $databaseTypes = array();
 $databaseTypes['mysql'] = 'mysql_connect';
+$databaseTypes['mysqli'] = 'mysqli_connect';
 $databaseTypes['sqlite'] = 'sqlite_open';
 $databaseTypes['postgres'] = 'pg_connect';
 // test db-types

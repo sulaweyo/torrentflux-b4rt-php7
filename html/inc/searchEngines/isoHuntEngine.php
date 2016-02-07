@@ -114,7 +114,7 @@ class SearchEngine extends SearchEngineBase
         $thing = $this->htmlPage;
 
         // Strip out those Nasty Iframes.
-        $thing = eregi_replace("<table[[:space:]]width=[[:punct:]]100%[[:punct:]][[:space:]]cellspacing=[[:punct:]]0[[:punct:]][[:space:]]cellpadding=[[:punct:]]0[[:punct:]][[:space:]]border=[[:punct:]]0[[:punct:]]><tr><td[[:space:]]width=[[:punct:]]10[[:punct:]]></td><td[[:space:]]style=[[:punct:]]border[[:punct:]]3px[[:space:]]solid[[:space:]]#003366[[:punct:]]><iframe[[:space:]]frameborder=[[:punct:]]0[[:punct:]][[:space:]]width=[[:punct:]]100%[[:punct:]][[:space:]]id=[[:punct:]]([a-zA-Z0-9])*[[:punct:]]></iframe></td></tr></table>",'',$thing);
+        $thing = preg_replace("/<table[[:space:]]width=[[:punct:]]100%[[:punct:]][[:space:]]cellspacing=[[:punct:]]0[[:punct:]][[:space:]]cellpadding=[[:punct:]]0[[:punct:]][[:space:]]border=[[:punct:]]0[[:punct:]]><tr><td[[:space:]]width=[[:punct:]]10[[:punct:]]></td><td[[:space:]]style=[[:punct:]]border[[:punct:]]3px[[:space:]]solid[[:space:]]#003366[[:punct:]]><iframe[[:space:]]frameborder=[[:punct:]]0[[:punct:]][[:space:]]width=[[:punct:]]100%[[:punct:]][[:space:]]id=[[:punct:]]([a-zA-Z0-9])*[[:punct:]]></iframe></td></tr></table>/i",'',$thing);
 
         // We got a response so display it.
         // Chop the front end off.
@@ -140,7 +140,7 @@ class SearchEngine extends SearchEngineBase
         if (strpos($tmpList,"/download/") || strpos($tmpList,"torrent_details"))
             {
                 // ok so now we have the listing.
-                $tmpListArr = split("</tr>",$tmpList);
+                $tmpListArr = explode("</tr>",$tmpList);
 
                 array_pop($tmpListArr);
                 $bg = $this->cfg["bgLight"];
@@ -205,7 +205,7 @@ class SearchEngine extends SearchEngineBase
 
             $pages = str_replace("&nbsp; ",'',strip_tags($pages,"<a><b>"));
 
-            $tmpPageArr = split("</a>",$pages);
+            $tmpPageArr = explode("</a>",$pages);
             array_pop($tmpPageArr);
 
             $pagesout = '';
@@ -258,10 +258,10 @@ class isoHunt
             $this->Data = $htmlLine;
 
             // Fix messed up end td's once in a while.
-            $htmlLine = eregi_replace("<(.)*1ff8(.)*/td>",'</td>',$htmlLine);
+            $htmlLine = preg_replace("/<(.)*1ff8(.)*/td>/i",'</td>',$htmlLine);
 
             // Chunck up the row into columns.
-            $tmpListArr = split("</td>",$htmlLine);
+            $tmpListArr = explode("</td>",$htmlLine);
 
             array_pop($tmpListArr);
 

@@ -364,9 +364,9 @@ if (!defined('vlibDateClassLoaded')) {
             $this->_year = $year;
             $this->_interval = 0;
             $this->_days = $this->dateToDays ($timestamp);
-            preg_replace("/([\d]+)\s*([\w]+)/xSe"
-                                ,"\$this->_calcAddInterval('\\1', '\\2');"
-                                ,$interval);
+            preg_replace_callback( "/([\d]+)\s*([\w]+)/xS",	function($m) { 
+            	return $this->_calcAddInterval($m[1], $m[2]); 
+            },$interval);
 
             if ($this->_interval < 1) return $timestamp;
 
@@ -401,9 +401,9 @@ if (!defined('vlibDateClassLoaded')) {
             $this->_year = $year;
             $this->_interval = 0;
             $this->_days = $this->dateToDays ($timestamp);
-            preg_replace("/([\d]+)\s*([\w]+)/xSe"
-                                ,"\$this->_calcSubInterval('\\1', '\\2');"
-                                ,$interval);
+            preg_replace_callback( "/([\d]+)\s*([\w]+)/xS",	function($m) {
+            	return $this->_calcAddInterval($m[1],$m[2]);
+            },$interval);
 
             if ($this->_interval < 1) return $timestamp;
 

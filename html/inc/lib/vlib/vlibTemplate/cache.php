@@ -82,7 +82,7 @@ class vlibTemplateCache extends vlibTemplate {
      * @return boolean
      */
     function setCacheExtension($str = null) {
-        if ($str == null || !ereg('^[a-z0-9]+$', strtolower($str))) return false;
+        if ($str == null || !preg_match('/^[a-z0-9]+$/', strtolower($str))) return false;
         $this->OPTIONS['CACHE_EXTENSION'] = strtolower($str);
         return true;
     }
@@ -103,7 +103,7 @@ class vlibTemplateCache extends vlibTemplate {
             return false;
         }
 
-        if (file_exists($this->_cachefile)) {
+        if (file_exists($this->_cachefile) && is_readable($this->_cachefile)) {
             $this->_cacheexists = 1;
 
             // if it's expired
@@ -161,7 +161,7 @@ class vlibTemplateCache extends vlibTemplate {
         $filepath = dirname($file);
         if (is_dir($filepath)) return true;
 
-        $dirs = split('[\\/]', $filepath);
+        $dirs = preg_split('[\\/]', $filepath);
         $currpath = "";
         foreach ($dirs as $dir) {
             $currpath .= $dir .'/';
