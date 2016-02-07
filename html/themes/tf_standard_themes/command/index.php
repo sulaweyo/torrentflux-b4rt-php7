@@ -1,0 +1,16 @@
+<?php
+
+/* $Id: index.php 98 2006-07-29 18:23:28Z b4rt $ */
+
+$cfg["main_bgcolor"] = "#000000";
+$cfg["table_data_bg"] = "#000000";
+$cfg["table_border_dk"] = "#00FF12";
+$cfg["table_header_bg"] = "#4A4A4A";
+$cfg["table_admin_border"] = "#6E6E6E";
+$cfg["body_data_bg"] = "#000000";
+
+// Directory alternating colors for dir.php
+$cfg["bgLight"] = "#6E6E6E";
+$cfg["bgDark"] = "#4A4A4A";
+
+?>

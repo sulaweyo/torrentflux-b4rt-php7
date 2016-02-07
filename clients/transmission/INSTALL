@@ -1,0 +1,46 @@
+=================================================================
+$Id: INSTALL 3365 2008-03-22 15:03:03Z b4rt $
+=================================================================
+
+
+Transmission 1.06 and Transmission 0.96
+---------------------------------------
+
+1. Get the Transmission Source Code Release from
+   http://www.transmissionbt.com/
+
+2. Untar the package into a directory.
+
+   tar -jxvf transmission-<version>.tar.bz2
+
+3. Untar the tfb-package into a directory.
+
+   tar -jxvf Transmission-<version>_tfCLI-<version>.tar.bz2
+
+4. Copy the content of the tfb-package extracted in 3. to the
+   Transmission-Directory extracted in 2. (overwriting files).
+
+   FreeBSD only: Apply the patch "freebsd.patch" (file was just
+                 copied to the Transmission-Directory)
+
+5. Build + Install transmissioncli, instructions about how to
+   do this can be found in the Transmission-Documentation.
+
+
+Transmission 0.72
+-----------------
+
+1. Untar the package into a directory.
+
+   tar -jxvf Transmission-0.72_tfCLI-svn3318.tar.bz2
+
+2. Build + Install transmissioncli.
+   Go to the directory just extracted and execute :
+
+   ./configure --disable-gtk
+   make
+   make install
+   
+   Note: It may be called 'make' or 'gmake' depending on
+         your system.
+
